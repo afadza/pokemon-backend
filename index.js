@@ -6,7 +6,6 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
-// Helper function to check if a number is prime
 const isPrime = (num) => {
   if (num <= 1) return false;
   for (let i = 2; i <= Math.sqrt(num); i++) {
@@ -15,9 +14,8 @@ const isPrime = (num) => {
   return true;
 };
 
-// Helper function to calculate Fibonacci number
 const fibonacci = (n) => {
-  if (n < 0) return 0; // Handle invalid input
+  if (n < 0) return 0;
   let [a, b] = [0, 1];
   for (let i = 2; i <= n; i++) {
     [a, b] = [b, a + b];
@@ -25,21 +23,17 @@ const fibonacci = (n) => {
   return b;
 };
 
-// Temporary in-memory storage for caught Pokémon
 let myPokemons = [];
 
-// API to return probability of 50% when catching Pokémon
 app.get("/catch", (req, res) => {
   const success = Math.random() < 0.5;
   res.json({ success });
 });
 
-// API to get all caught Pokémon
 app.get("/my-pokemons", (req, res) => {
   res.json(myPokemons);
 });
 
-// API to add a Pokémon to the list
 app.post("/add-pokemon", (req, res) => {
   const { pokemon } = req.body;
   if (!pokemon || typeof pokemon !== "object") {
@@ -49,7 +43,6 @@ app.post("/add-pokemon", (req, res) => {
   res.status(201).json(pokemon);
 });
 
-// API to release Pokémon
 app.post("/release", (req, res) => {
   const { id } = req.body;
   if (typeof id !== "number" || isNaN(id)) {
@@ -65,7 +58,6 @@ app.post("/release", (req, res) => {
   }
 });
 
-// API to rename Pokémon
 app.post("/rename", (req, res) => {
   const { id, newName } = req.body;
   if (typeof id !== "number" || isNaN(id) || typeof newName !== "string") {
